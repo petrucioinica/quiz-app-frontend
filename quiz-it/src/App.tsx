@@ -8,6 +8,8 @@ import { Register } from "./register";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { PageLoader } from "./common/PageLoader";
 import { NotFoundPage } from "./notFoundPage";
+import { ActivateAccount } from "./activateAccount";
+import { Home } from "./home";
 
 export const App = () => (
 	<ChakraProvider theme={QITheme}>
@@ -18,6 +20,8 @@ export const App = () => (
 						<Route path="/login" element={<LogIn />} />
 						<Route path="/register" element={<Register />} />
 						<Route path="/" element={<PageLoader />} />
+						<Route path="/activate-account" element={<ActivateAccount />} />
+						<Route path="/home" element={<Home />} />
 						<Route path="*" element={<NotFoundPage />} />
 					</Routes>
 				</NavigationWrapper>

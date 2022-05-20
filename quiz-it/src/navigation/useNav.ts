@@ -16,24 +16,32 @@ const adminPossibleRoutes: NavRoute[] = [
 const playerPossibleRoutes: NavRoute[] = [{ value: "/home", title: "Home" }];
 
 export const useNav: UseNav = () => {
-	const { user } = useContext(AuthContext) as UseAuthReturn;
+	const { user, didMount } = useContext(AuthContext) as UseAuthReturn;
 	const [possibleRoutes, setPossibleRoutes] = useState<NavRoute[]>([]);
 	const location = useLocation();
 	const navigate = useNavigate();
 	useEffect(() => {
-		if (!localStorage.getItem("token")) {
-			setPossibleRoutes(unauthenticatedPossibleRoutes);
-		} else {
-			setPossibleRoutes(adminPossibleRoutes);
+		if (didMount) {
+			if (!user) {
+				setPossibleRoutes(unauthenticatedPossibleRoutes);
+			} else {
+				if (user.roleId === 0) {
+					setPossibleRoutes(adminPossibleRoutes);
+				} else {
+					setPossibleRoutes(playerPossibleRoutes);
+				}
+			}
 		}
-	}, [user]);
+	}, [user, didMount]);
 
 	useEffect(() => {
 		if (possibleRoutes.length) {
+			console.log(
+				possibleRoutes.filter((item) => item.value.includes(location?.pathname))
+			);
 			if (
-				!possibleRoutes.filter((item) =>
-					item.value.includes(location?.pathname)
-				) ||
+				possibleRoutes.filter((item) => item.value.includes(location?.pathname))
+					.length == 0 ||
 				location?.pathname === "/"
 			) {
 				navigate(possibleRoutes[0]?.value);

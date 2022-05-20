@@ -15,7 +15,12 @@ export const NavigationWrapper: React.FC = (props) => {
 
 	return (
 		<NavContext.Provider value={nav}>
-			<Flex width="100vw" height="100vh" overflowX={"auto"} overflowY="hidden">
+			<Flex
+				width="100vw"
+				height="100vh"
+				overflowX={"auto"}
+				overflowY="hidden"
+				direction={"column"}>
 				{nav.possibleRoutes ? (
 					<>
 						{user && <Navbar />}

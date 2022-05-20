@@ -1,10 +1,22 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
-import React, { useState } from "react";
+import {
+	Box,
+	Flex,
+	Modal,
+	ModalBody,
+	ModalCloseButton,
+	ModalContent,
+	ModalFooter,
+	ModalHeader,
+	ModalOverlay,
+	Text,
+} from "@chakra-ui/react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../authentication";
+import { UseAuthReturn } from "../authentication/useAuth.types";
 import { InputLabel } from "../common/InputLabel";
 import { QIButton } from "../common/QIButton";
 import { QIInput } from "../common/QIInput";
-import { QISpinner } from "../common/QISpinner";
 import { validateEmail, validatePassword } from "../utils/validators";
 import { RegisterErrorsState, RegisterFormState } from "./types";
 
@@ -17,13 +29,15 @@ export const Register: React.FC = () => {
 		email: "",
 		repeatPassword: "",
 	});
-
 	const [formState, setFormState] = useState<RegisterFormState>({
 		username: "",
 		password: "",
 		email: "",
 		repeatPassword: "",
 	});
+	const { registerUser } = useContext(AuthContext) as UseAuthReturn;
+	const [emailModalOpen, setEmailModalOpen] = useState<boolean>(false);
+
 	const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setFormState({
 			...formState,
@@ -95,7 +109,7 @@ export const Register: React.FC = () => {
 		if (!formState.password) {
 			setErrors({
 				...errors,
-				email: "This field is required.",
+				password: "This field is required.",
 			});
 			return;
 		}
@@ -153,7 +167,6 @@ export const Register: React.FC = () => {
 			if (key !== "global") {
 				//@ts-ignore
 				if (errors[key]) {
-					//@ts-ignore
 					return false;
 				}
 			}
@@ -161,7 +174,28 @@ export const Register: React.FC = () => {
 		return true;
 	};
 
-	const handleRegisterClick = async () => {};
+	const handleRegisterClick = async () => {
+		setLoading(true);
+		setErrors({
+			...errors,
+			global: "",
+		});
+		const err = await registerUser(formState);
+		if (err) {
+			setErrors({
+				...errors,
+				global: err.message,
+			});
+		} else {
+			setEmailModalOpen(true);
+		}
+
+		setLoading(false);
+	};
+
+	const onModalClose = () => {
+		setEmailModalOpen(false);
+	};
 
 	return (
 		<Flex
@@ -218,7 +252,7 @@ export const Register: React.FC = () => {
 				</InputLabel>
 
 				<Box minW="60px" my={3}>
-					<Text color="danger.500" fontSize={"2xl"}>
+					<Text color="danger.500" fontSize={"xl"}>
 						{errors.global}
 					</Text>
 				</Box>
@@ -240,10 +274,41 @@ export const Register: React.FC = () => {
 					marginTop={[2, 2, 20, 30, 30]}
 					width="100%"
 					isDisabled={!canClickButton()}
-					isLoading={loading}>
+					isLoading={loading}
+					onClick={handleRegisterClick}>
 					Register
 				</QIButton>
 			</Flex>
+
+			<Modal isOpen={emailModalOpen} onClose={onModalClose}>
+				<ModalOverlay />
+				<ModalContent>
+					<ModalHeader
+						fontFamily="secondary"
+						fontSize="3xl"
+						color="primary.700">
+						Registration succeded
+					</ModalHeader>
+					<ModalCloseButton />
+					<ModalBody>
+						<Text fontSize={"2xl"} color="primary.500">
+							Your account has been created! We have sent you an E-mail with a
+							link in order to activate your account. Remember to also check
+							spam!
+						</Text>
+					</ModalBody>
+
+					<ModalFooter>
+						<QIButton
+							colorScheme="primary"
+							mr={3}
+							onClick={onModalClose}
+							px={12}>
+							OK
+						</QIButton>
+					</ModalFooter>
+				</ModalContent>
+			</Modal>
 		</Flex>
 	);
 };
