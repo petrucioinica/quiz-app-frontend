@@ -15,8 +15,8 @@ export const App = () => (
 			<AuthWrapper>
 				<NavigationWrapper>
 					<Routes>
-						<Route path="login" element={<LogIn />} />
-						<Route path="register" element={<Register />} />
+						<Route path="/login" element={<LogIn />} />
+						<Route path="/register" element={<Register />} />
 						<Route path="/" element={<PageLoader />} />
 						<Route path="*" element={<NotFoundPage />} />
 					</Routes>
