@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { QIUser, UseAuth } from "./useAuth.types";
 
 export const useAuth: UseAuth = () => {
