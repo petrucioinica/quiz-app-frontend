@@ -33,6 +33,19 @@ export const LogIn: React.FC = () => {
 			password: e.target.value,
 		});
 	};
+
+	const canClickButton = () => {
+		Object.keys(errors).forEach((key: string) => {
+			if (key !== "global") {
+				//@ts-ignore
+				if (errors[key]) {
+					return false;
+				}
+			}
+		});
+		return true;
+	};
+
 	return (
 		<Flex
 			height={"100%"}
@@ -69,10 +82,12 @@ export const LogIn: React.FC = () => {
 					</InputLabel>
 
 					<Box minW="60px" my={3}>
-						<Text color="danger.500" fontSize={"3xl"}></Text>
+						<Text color="danger.500" fontSize={"2xl"}>
+							{errors.global}
+						</Text>
 					</Box>
 
-					<Text fontSize={"2xl"}>
+					<Text fontSize={"xl"}>
 						Don't have an account? Click{" "}
 						<Link to="/register">
 							<Text

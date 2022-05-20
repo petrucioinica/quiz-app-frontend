@@ -8,8 +8,8 @@ interface InputLabelProps extends FlexProps {
 export const InputLabel: React.FC<InputLabelProps> = (props) => {
 	const { label, ...other } = props;
 	return (
-		<Flex direction={"column"} {...other} my={3} width="100%">
-			<Text fontSize="2xl" my={2} fontWeight="bold">
+		<Flex direction={"column"} {...other} my={2} width="100%">
+			<Text fontSize="xl" my={2} fontWeight="bold">
 				{label}
 			</Text>
 			{props.children}
