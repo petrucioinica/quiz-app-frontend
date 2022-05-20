@@ -1,3 +1,4 @@
+import { LogInFormState } from "../logIn/types";
 import { RegisterFormState } from "../register/types";
 
 export interface QIUser {
@@ -20,6 +21,7 @@ export interface UseAuthReturn {
 	logInFromActivation: (token: string) => void;
 	didMount: boolean;
 	logOut: () => void;
+	logIn: (formState: LogInFormState) => Promise<void | ErrorInterface>;
 }
 
 export type UseAuth = () => UseAuthReturn;

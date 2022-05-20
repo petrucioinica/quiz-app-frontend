@@ -1,6 +1,7 @@
 import jwt_decode from "jwt-decode";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { LogInFormState } from "../logIn/types";
 import { RegisterFormState } from "../register/types";
 import { apiClientFactory } from "../utils/apiClient";
 import { QIUser, UseAuth } from "./useAuth.types";
@@ -40,5 +41,26 @@ export const useAuth: UseAuth = () => {
 		setUser(null);
 		navigate("/login");
 	};
-	return { user, setUser, registerUser, logInFromActivation, didMount, logOut };
+
+	const logIn = async (formData: LogInFormState) => {
+		try {
+			const apiClient = apiClientFactory();
+			const res = await apiClient.post("/api/user/login", formData);
+			localStorage.setItem("token", res.data.token);
+			setUser(jwt_decode(res.data.token));
+			navigate("/");
+		} catch (err) {
+			console.error(err); //@ts-ignore
+			return err.response.data;
+		}
+	};
+	return {
+		user,
+		setUser,
+		registerUser,
+		logInFromActivation,
+		didMount,
+		logOut,
+		logIn,
+	};
 };

@@ -1,6 +1,8 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../authentication";
+import { UseAuthReturn } from "../authentication/useAuth.types";
 import { InputLabel } from "../common/InputLabel";
 import { QIButton } from "../common/QIButton";
 import { QIInput } from "../common/QIInput";
@@ -10,20 +12,20 @@ import { LogInErrorsState, LogInFormState } from "./types";
 export const LogIn: React.FC = () => {
 	const [loading, setLoading] = useState<boolean>(false);
 	const [errors, setErrors] = useState<LogInErrorsState>({
-		username: "",
+		email: "",
 		password: "",
 		global: "",
 	});
-
 	const [formState, setFormState] = useState<LogInFormState>({
-		username: "",
+		email: "",
 		password: "",
 	});
+	const { logIn } = useContext(AuthContext) as UseAuthReturn;
 
 	const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setFormState({
 			...formState,
-			username: e.target.value,
+			email: e.target.value,
 		});
 	};
 
@@ -34,16 +36,20 @@ export const LogIn: React.FC = () => {
 		});
 	};
 
-	const canClickButton = () => {
-		Object.keys(errors).forEach((key: string) => {
-			if (key !== "global") {
-				//@ts-ignore
-				if (errors[key]) {
-					return false;
-				}
-			}
+	const handleLoginClick = async () => {
+		setLoading(true);
+		setErrors({
+			...errors,
+			global: "",
 		});
-		return true;
+		const err = await logIn(formState);
+		if (err) {
+			setErrors({
+				...errors,
+				global: err.message,
+			});
+		}
+		setLoading(false);
 	};
 
 	return (
@@ -54,60 +60,55 @@ export const LogIn: React.FC = () => {
 			justifyContent={"center"}
 			alignItems={["start", "start", "center", "center", "center"]}
 			px={4}>
-			{loading ? (
-				<QISpinner />
-			) : (
-				<Flex
-					direction={"column"}
-					w={["100%", "100%", "600px", "600px", "600px"]}
-					justifyContent={"center"}
-					alignItems="center">
-					<Text fontWeight={"bold"} fontSize="5xl" fontFamily={"secondary"}>
-						Log In
+			<Flex
+				direction={"column"}
+				w={["100%", "100%", "600px", "600px", "600px"]}
+				justifyContent={"center"}
+				alignItems="center">
+				<Text fontWeight={"bold"} fontSize="5xl" fontFamily={"secondary"}>
+					Log In
+				</Text>
+
+				<InputLabel label="Username:">
+					<QIInput value={formState.email} onChange={handleUsernameChange} />
+				</InputLabel>
+
+				<InputLabel label="Password:">
+					<QIInput
+						type="password"
+						value={formState.password}
+						onChange={handlePasswordChange}
+					/>
+				</InputLabel>
+
+				<Box minW="60px" my={3}>
+					<Text color="danger.500" fontSize={"2xl"}>
+						{errors.global}
 					</Text>
+				</Box>
 
-					<InputLabel label="Username:">
-						<QIInput
-							value={formState.username}
-							onChange={handleUsernameChange}
-						/>
-					</InputLabel>
-
-					<InputLabel label="Password:">
-						<QIInput
-							type="password"
-							value={formState.password}
-							onChange={handlePasswordChange}
-						/>
-					</InputLabel>
-
-					<Box minW="60px" my={3}>
-						<Text color="danger.500" fontSize={"2xl"}>
-							{errors.global}
+				<Text fontSize={"xl"}>
+					Don't have an account? Click{" "}
+					<Link to="/register">
+						<Text
+							decoration={"underline"}
+							display="inline"
+							color={"secondary.600"}>
+							here
 						</Text>
-					</Box>
+					</Link>{" "}
+					to create one.
+				</Text>
 
-					<Text fontSize={"xl"}>
-						Don't have an account? Click{" "}
-						<Link to="/register">
-							<Text
-								decoration={"underline"}
-								display="inline"
-								color={"secondary.600"}>
-								here
-							</Text>
-						</Link>{" "}
-						to create one.
-					</Text>
-
-					<QIButton
-						marginTop={[20, 20, 30, 40, 40]}
-						width="100%"
-						isDisabled={!formState.password || !formState.username}>
-						Log In
-					</QIButton>
-				</Flex>
-			)}
+				<QIButton
+					marginTop={[20, 20, 30, 40, 40]}
+					width="100%"
+					isDisabled={!formState.password || !formState.email}
+					isLoading={loading}
+					onClick={handleLoginClick}>
+					Log In
+				</QIButton>
+			</Flex>
 		</Flex>
 	);
 };

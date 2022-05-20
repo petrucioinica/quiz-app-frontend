@@ -1,10 +1,10 @@
 export interface LogInFormState {
-	username: string;
+	email: string;
 	password: string;
 }
 
 export interface LogInErrorsState {
-	username: string;
+	email: string;
 	password: string;
 	global: string;
 }
