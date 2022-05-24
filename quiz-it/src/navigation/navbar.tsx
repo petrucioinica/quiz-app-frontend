@@ -7,16 +7,22 @@ import {
 	MenuItem,
 	MenuList,
 	Text,
+	useColorMode,
+	useColorModeValue,
 } from "@chakra-ui/react";
 import React, { useContext } from "react";
+import { FaMoon, FaSun } from "react-icons/fa";
 import { AuthContext } from "../authentication";
 import { UseAuthReturn } from "../authentication/useAuth.types";
-import { QIButton } from "../common/QIButton";
+import { Divider } from "@chakra-ui/react";
 
 const NAVBAR_HEIGHT = "64px";
 
 export const Navbar: React.FC = () => {
 	const { user, logOut } = useContext(AuthContext) as UseAuthReturn;
+	const { toggleColorMode } = useColorMode();
+	const text = useColorModeValue("dark", "light");
+	const SwitchIcon = useColorModeValue(FaMoon, FaSun);
 	return (
 		<Flex
 			width="100%"
@@ -44,7 +50,28 @@ export const Navbar: React.FC = () => {
 				</MenuButton>
 
 				<MenuList color={"primary.500"} fontSize="xl" fontWeight={"bold"}>
-					<MenuItem onClick={logOut}>Log Out</MenuItem>
+					<MenuItem onClick={logOut}>
+						<Flex
+							width={"100%"}
+							height="100%"
+							justifyContent={"center"}
+							alignItems="center">
+							Log Out
+						</Flex>
+					</MenuItem>
+					<Divider my={2} />
+					<MenuItem
+						onClick={toggleColorMode}
+						aria-label={`Switch to ${text} mode`}>
+						<Flex
+							width={"100%"}
+							height="100%"
+							justifyContent={"center"}
+							alignItems="center"
+							py={4}>
+							<SwitchIcon />
+						</Flex>
+					</MenuItem>
 				</MenuList>
 			</Menu>
 		</Flex>

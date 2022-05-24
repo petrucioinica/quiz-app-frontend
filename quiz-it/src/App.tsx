@@ -10,6 +10,8 @@ import { PageLoader } from "./common/PageLoader";
 import { NotFoundPage } from "./notFoundPage";
 import { ActivateAccount } from "./activateAccount";
 import { Home } from "./home";
+import { Categories } from "./adminDashboard/categories";
+import { Questions } from "./adminDashboard/questions";
 
 export const App = () => (
 	<ChakraProvider theme={QITheme}>
@@ -22,6 +24,8 @@ export const App = () => (
 						<Route path="/" element={<PageLoader />} />
 						<Route path="/activate-account" element={<ActivateAccount />} />
 						<Route path="/home" element={<Home />} />
+						<Route path="/categories" element={<Categories />} />
+						<Route path="/questions" element={<Questions />} />
 						<Route path="*" element={<NotFoundPage />} />
 					</Routes>
 				</NavigationWrapper>
