@@ -8,7 +8,6 @@ export const QIButton: React.FC<QIButtonProps> = (props) => {
 		<Button
 			{...props}
 			variant="solid"
-			colorScheme={"primary"}
 			_focus={{ boxShadow: "none" }}
 			fontFamily="secondary"
 			fontSize={"3xl"}
