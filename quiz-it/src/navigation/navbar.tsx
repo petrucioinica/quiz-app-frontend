@@ -25,7 +25,7 @@ import { UseAuthReturn } from "../authentication/useAuth.types";
 import { Divider } from "@chakra-ui/react";
 import { NavContext } from ".";
 import { UseNavReturn } from "./types";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { QIButton } from "../common/QIButton";
 import { ColorModeSwitcher } from "../ColorModeSwitcher";
 
@@ -37,7 +37,9 @@ export const Navbar: React.FC = () => {
 	const text = useColorModeValue("dark", "light");
 	const SwitchIcon = useColorModeValue(FaMoon, FaSun);
 	const { possibleRoutes } = useContext(NavContext) as UseNavReturn;
+	const location = useLocation();
 
+	console.log(location);
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const onOpen = () => {
 		setIsOpen(true);
@@ -49,7 +51,6 @@ export const Navbar: React.FC = () => {
 
 	return (
 		<Flex
-			width="100%"
 			height={NAVBAR_HEIGHT}
 			bgColor={"primary.700"}
 			color="primary.300"
@@ -69,7 +70,13 @@ export const Navbar: React.FC = () => {
 						fontWeight={"bold"}
 						fontSize="xxx-large"
 						fontFamily={"secondary"}
-						mx={8}>
+						mx={8}
+						color={
+							route.value.includes(location.pathname)
+								? "secondary.500"
+								: "primary.500"
+						}
+						_hover={{ color: "secondary.300" }}>
 						<Link to={route.value}>{route.title}</Link>
 					</Text>
 				))}

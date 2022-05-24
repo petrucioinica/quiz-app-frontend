@@ -10,8 +10,8 @@ const unauthenticatedPossibleRoutes: NavRoute[] = [
 ];
 
 const adminPossibleRoutes: NavRoute[] = [
-	{ value: "/categories", title: "Manage Questions" },
-	{ value: "/questions", title: "Questions" },
+	{ value: "/categories", title: "Categories" },
+	{ value: "/questions", title: "Manage Questions" },
 ];
 
 const playerPossibleRoutes: NavRoute[] = [{ value: "/home", title: "Home" }];

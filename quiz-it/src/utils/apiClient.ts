@@ -9,8 +9,8 @@ export const apiClientFactory = () => {
 		baseURL: baseURL,
 		responseType: "json",
 		headers: {
+			Authorization: `Bearer ${token}`,
 			"Content-Type": "application/json",
-			Authorizaton: `Bearer ${token}`,
 		},
 	});
 };
