@@ -1,4 +1,4 @@
-import { Flex, Text } from "@chakra-ui/react";
+import { Alert, AlertIcon, Box, Flex, Text, useToast } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { InputLabel } from "../../common/InputLabel";
 import { PageLoader } from "../../common/PageLoader";
@@ -6,6 +6,8 @@ import { QIButton } from "../../common/QIButton";
 import { QiDropdown } from "../../common/QIDropdown";
 import { apiClientFactory } from "../../utils/apiClient";
 import { Category } from "../categories/types";
+import { CreateQuestionModal } from "./CreateQuestionModal";
+import { QuestionsTable } from "./QuestionsTable";
 import { Question } from "./types";
 
 export const Questions: React.FC = () => {
@@ -13,6 +15,8 @@ export const Questions: React.FC = () => {
 	const [loading, setLoading] = useState<boolean>(true);
 	const [selectedCategory, setSelectedCategory] = useState<string>("");
 	const [questions, setQuestions] = useState<Question[]>([]);
+	const [createModalOpen, setCreateModalOpen] = useState<boolean>(false);
+	const toast = useToast();
 
 	const getCategories = async () => {
 		try {
@@ -25,6 +29,7 @@ export const Questions: React.FC = () => {
 				title: err.response.data.error, //@ts-ignore
 				description: err.response.data.message,
 				status: "error",
+				isClosable: true,
 			});
 		}
 	};
@@ -43,6 +48,7 @@ export const Questions: React.FC = () => {
 				title: err.response.data.error, //@ts-ignore
 				description: err.response.data.message,
 				status: "error",
+				isClosable: true,
 			});
 		}
 		setLoading(false);
@@ -64,51 +70,127 @@ export const Questions: React.FC = () => {
 		setSelectedCategory(val);
 	};
 
+	const onCreateModalClose = () => {
+		setCreateModalOpen(false);
+	};
+
+	const onCreateModalOpen = () => {
+		setCreateModalOpen(true);
+	};
+
+	const createQuestion = async (question: Question) => {
+		if (
+			!question.question ||
+			!question.second ||
+			!question.first ||
+			!question.third ||
+			!question.fourth
+		) {
+			toast({
+				title: "All fields are required!",
+				description: "Please fill in all fields in order to create a question!",
+				status: "error",
+				isClosable: true,
+			});
+			return;
+		}
+
+		try {
+			const apiClient = apiClientFactory();
+			const res = await apiClient.post("/api/question/create", question);
+			console.log(res);
+			getQuestions();
+			toast({
+				title: `Question created`,
+				status: "success",
+				position: "bottom",
+				isClosable: true,
+			});
+			setCreateModalOpen(false);
+		} catch (err) {
+			console.log(err);
+			toast({
+				//@ts-ignore
+				title: err.response.data.error, //@ts-ignore
+				description: err.response.data.message,
+				status: "error",
+				position: "bottom",
+				isClosable: true,
+			});
+		}
+	};
+
 	return loading ? (
 		<PageLoader />
 	) : (
-		<Flex direction={"column"} px={[2, 2, 30, 40, 40]} my={7}>
-			<InputLabel label="Filter by category:" color="primary.500">
-				<QiDropdown
-					options={[
-						{
-							value: "",
-							display: (
-								<Flex>
-									<Text color="primary.200" fontWeight={"bold"}>
-										None
-									</Text>
-								</Flex>
-							),
-						},
-						...categories.map((category) => {
-							return {
-								value: category.id,
-								display: (
-									<Text fontWeight={"bold"} color="primary.500">
-										{category.name}
-									</Text>
-								),
-							};
-						}),
-					]}
-					placeholder="Category"
-					value={selectedCategory}
-					onChange={handleSelectedCategoryChange}
-				/>
-			</InputLabel>
+		<Box overflowY={"auto"}>
+			<Flex direction={"column"} px={[2, 2, 30, 40, 40]} my={7}>
+				<Flex width="100%" justifyContent={"space-between"} alignItems="center">
+					<InputLabel label="Filter by category:" color="primary.500">
+						<QiDropdown
+							options={[
+								{
+									value: "",
+									display: (
+										<Flex>
+											<Text color="primary.200" fontWeight={"bold"}>
+												None
+											</Text>
+										</Flex>
+									),
+								},
+								...categories.map((category) => {
+									return {
+										value: category.id,
+										display: (
+											<Text fontWeight={"bold"} color="primary.500">
+												{category.name}
+											</Text>
+										),
+									};
+								}),
+							]}
+							placeholder="Category"
+							value={selectedCategory}
+							onChange={handleSelectedCategoryChange}
+							width="300px"
+						/>
+					</InputLabel>
+
+					<QIButton
+						variant="solid"
+						colorScheme={"primary"}
+						px={8}
+						onClick={onCreateModalOpen}>
+						Add Question
+					</QIButton>
+				</Flex>
+
+				{createModalOpen && (
+					<CreateQuestionModal
+						categories={categories}
+						selectedCategory={selectedCategory}
+						onClose={onCreateModalClose}
+						onFinish={createQuestion}
+					/>
+				)}
+			</Flex>
 
 			<Flex py={[2, 2, 10, 20, 20]} width="100%">
-				{/*questions show here */}
+				{questions ? (
+					<QuestionsTable
+						questions={questions}
+						setQuestions={setQuestions}
+						getQuestions={getQuestions}
+						categories={categories}
+					/>
+				) : (
+					<Alert status="info">
+						<AlertIcon />
+						There are no questions
+					</Alert>
+				)}
 			</Flex>
-		</Flex>
+		</Box>
 	);
 };
-function toast(arg0: {
-	//@ts-ignore
-	title: any; //@ts-ignore
-	description: any;
-	status: string;
-}) {
-	throw new Error("Function not implemented.");
-}

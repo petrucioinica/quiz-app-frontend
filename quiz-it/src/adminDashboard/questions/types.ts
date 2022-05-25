@@ -8,4 +8,9 @@ export interface Question {
 	availableTime: number;
 	picture?: string;
 	correctAnswer: number;
+	categoryId: string;
+	category?: {
+		id: string;
+		name: string;
+	};
 }

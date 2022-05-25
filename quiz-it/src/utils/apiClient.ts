@@ -23,6 +23,8 @@ export const apiClientFactory = () => {
 			if (err.response.status === 401) {
 				localStorage.removeItem("token"); //@ts-ignore
 				window.location.reload();
+			} else {
+				throw err;
 			}
 		}
 	);

@@ -53,7 +53,11 @@ export const CreateCategoryModal: React.FC<CreateCategoryModalProps> = ({
 
 				<ModalFooter>
 					<Flex justifyContent={"flex-end"}>
-						<QIButton onClick={onClose} variant="ghost" mx={6}>
+						<QIButton
+							onClick={onClose}
+							variant="ghost"
+							mx={6}
+							colorScheme="secondary">
 							CLOSE
 						</QIButton>
 						<QIButton

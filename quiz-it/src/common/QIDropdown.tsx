@@ -61,7 +61,7 @@ export const QiDropdown: React.FC<QiDropdownProps> = (props) => {
 					width="100%"
 					border={!props.removeBorder ? "2px solid" : ""}
 					h={10}
-					borderColor={props.error ? "danger.500" : "fadedBlue"}
+					borderColor={props.error ? "danger.300" : "primary.300"}
 					borderRadius={10}
 					color={props.error ? "danger.500" : "primary.500"}
 					_hover={{ boderColor: props.error ? "danger.500" : "primary.500" }}
@@ -83,7 +83,7 @@ export const QiDropdown: React.FC<QiDropdownProps> = (props) => {
 				<MenuList
 					border="2px solid"
 					borderRadius={10}
-					borderColor="blue.500"
+					borderColor="primary.500"
 					zIndex={100}
 					maxH="80vh"
 					overflowY={"auto"}>

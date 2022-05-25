@@ -25,6 +25,7 @@ export const Categories: React.FC = () => {
 				title: err.response.data.error, //@ts-ignore
 				description: err.response.data.message,
 				status: "error",
+				isClosable: true,
 			});
 		}
 		setLoading(false);
@@ -43,6 +44,7 @@ export const Categories: React.FC = () => {
 				title: `${category.name} deleted`,
 				status: "success",
 				position: "bottom",
+				isClosable: true,
 			});
 		} catch (err) {
 			toast({
@@ -51,6 +53,7 @@ export const Categories: React.FC = () => {
 				description: err.response.data.message,
 				status: "error",
 				position: "bottom",
+				isClosable: true,
 			});
 		}
 	};
@@ -65,6 +68,7 @@ export const Categories: React.FC = () => {
 					title: `Category created`,
 					status: "success",
 					position: "bottom",
+					isClosable: true,
 				});
 				setCreateModalOpen(false);
 			} catch (err) {
@@ -74,6 +78,7 @@ export const Categories: React.FC = () => {
 					description: err.response.data.message,
 					status: "error",
 					position: "bottom",
+					isClosable: true,
 				});
 			}
 		}
@@ -95,6 +100,7 @@ export const Categories: React.FC = () => {
 				title: `Category updated`,
 				status: "success",
 				position: "bottom",
+				isClosable: true,
 			});
 			setCreateModalOpen(false);
 		} catch (err) {
@@ -104,6 +110,7 @@ export const Categories: React.FC = () => {
 				description: err.response.data.message,
 				status: "error",
 				position: "bottom",
+				isClosable: true,
 			});
 		}
 	};
