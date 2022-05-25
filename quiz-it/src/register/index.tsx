@@ -275,7 +275,9 @@ export const Register: React.FC = () => {
 					width="100%"
 					isDisabled={!canClickButton()}
 					isLoading={loading}
-					onClick={handleRegisterClick}>
+					onClick={handleRegisterClick}
+					colorScheme="primary"
+					variant="solid">
 					Register
 				</QIButton>
 			</Flex>

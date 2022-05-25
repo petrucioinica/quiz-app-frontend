@@ -105,7 +105,9 @@ export const LogIn: React.FC = () => {
 					width="100%"
 					isDisabled={!formState.password || !formState.email}
 					isLoading={loading}
-					onClick={handleLoginClick}>
+					onClick={handleLoginClick}
+					colorScheme="primary"
+					variant="solid">
 					Log In
 				</QIButton>
 			</Flex>

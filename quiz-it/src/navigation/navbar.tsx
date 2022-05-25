@@ -39,7 +39,6 @@ export const Navbar: React.FC = () => {
 	const { possibleRoutes } = useContext(NavContext) as UseNavReturn;
 	const location = useLocation();
 
-	console.log(location);
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const onOpen = () => {
 		setIsOpen(true);

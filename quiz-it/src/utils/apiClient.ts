@@ -5,7 +5,7 @@ export const baseURL = "http://localhost:3001";
 export const apiClientFactory = () => {
 	const token = localStorage.getItem("token");
 
-	return axios.create({
+	const instance = axios.create({
 		baseURL: baseURL,
 		responseType: "json",
 		headers: {
@@ -13,4 +13,19 @@ export const apiClientFactory = () => {
 			"Content-Type": "application/json",
 		},
 	});
+
+	instance.interceptors.response.use(
+		(res) => {
+			return res;
+		},
+		(err) => {
+			console.log(err);
+			if (err.response.status === 401) {
+				localStorage.removeItem("token"); //@ts-ignore
+				window.location.reload();
+			}
+		}
+	);
+
+	return instance;
 };
