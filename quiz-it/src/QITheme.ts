@@ -59,6 +59,9 @@ const colors = {
 
 export const QITheme = extendTheme({
 	colors,
+	config: {
+		defaultTheme: "dark",
+	},
 	fonts: {
 		body: "Mukta, sans-serif",
 		secondary: "Koulen, cursive",
