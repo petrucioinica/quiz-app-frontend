@@ -1,0 +1,251 @@
+{
+	"p1": {
+		"id": "19da1a6b-9e4c-4250-9078-86bd611fd351",
+		"username": "kaka",
+		"password": "25e0a841d5208b8e2b6892c8c5fe479b4106889fd828a3d2b26a1cd29d7592d6",
+		"email": "mihail95@yopmail.com",
+		"profilePicture": null,
+		"elo": 1000,
+		"noOfRankedGames": 0,
+		"noOfUnrankedGames": 0,
+		"ladderPosition": null,
+		"emailConfirmed": true,
+		"createdAt": "2022-05-27T21:25:23.000Z",
+		"updatedAt": "2022-05-27T21:25:42.000Z",
+		"divisionId": 3,
+		"roleId": 1,
+		"role": {
+			"id": 1,
+			"name": "player",
+			"createdAt": "2022-05-25T12:54:08.000Z",
+			"updatedAt": "2022-05-25T12:54:08.000Z"
+		},
+		"timeInQueue": 1
+	},
+	"p2": {
+		"id": "c4129f50-a548-4426-8a29-45ca36ed836e",
+		"username": "user996",
+		"password": "25e0a841d5208b8e2b6892c8c5fe479b4106889fd828a3d2b26a1cd29d7592d6",
+		"email": "someaccount@yopmail.com",
+		"profilePicture": null,
+		"elo": 1000,
+		"noOfRankedGames": 0,
+		"noOfUnrankedGames": 0,
+		"ladderPosition": null,
+		"emailConfirmed": true,
+		"createdAt": "2022-05-28T11:45:58.000Z",
+		"updatedAt": "2022-05-28T11:46:13.000Z",
+		"divisionId": 3,
+		"roleId": 1,
+		"role": {
+			"id": 1,
+			"name": "player",
+			"createdAt": "2022-05-25T12:54:08.000Z",
+			"updatedAt": "2022-05-25T12:54:08.000Z"
+		},
+		"timeInQueue": 1
+	},
+	"matchId": "3c04e73f-aad9-4fb7-b016-5307c1d11580",
+	"questions": [
+		{
+			"id": "d626a21e-c92a-4fa0-99bb-698a6f39bb81",
+			"question": "What is the tallest mountain?",
+			"first": "Everest",
+			"second": "Kilimanjaro",
+			"third": "Mont Blancheeeeeee",
+			"fourth": "Fuji",
+			"availableTime": 10,
+			"picture": null,
+			"correctAnswer": 1,
+			"createdAt": "2022-05-25T14:39:15.000Z",
+			"updatedAt": "2022-05-25T15:03:57.000Z",
+			"categoryId": "b43447e2-ec61-488c-be0a-e90c4bf4f16b",
+			"category": {
+				"id": "b43447e2-ec61-488c-be0a-e90c4bf4f16b",
+				"name": "Geography",
+				"createdAt": "2022-05-25T12:55:23.000Z",
+				"updatedAt": "2022-05-25T12:55:23.000Z"
+			}
+		},
+		{
+			"id": "02367a53-7846-4f04-aa00-1b46c520f017",
+			"question": "Who was the first roman emperor?",
+			"first": "Julius Caesar",
+			"second": "Octavian",
+			"third": "Marcus Antonius",
+			"fourth": "Trajan",
+			"availableTime": 15,
+			"picture": null,
+			"correctAnswer": 2,
+			"createdAt": "2022-05-25T15:05:12.000Z",
+			"updatedAt": "2022-05-28T11:47:18.000Z",
+			"categoryId": "2fa1676a-353a-4c14-853b-97a6a3ae0d0a",
+			"category": {
+				"id": "2fa1676a-353a-4c14-853b-97a6a3ae0d0a",
+				"name": "History",
+				"createdAt": "2022-05-25T15:04:27.000Z",
+				"updatedAt": "2022-05-25T15:04:27.000Z"
+			}
+		},
+		{
+			"id": "de54127d-9b17-4746-8227-08e2e7920bde",
+			"question": "Which battle ended the French’s attempts to dominate Europe?",
+			"first": "Waterloo",
+			"second": "Hastings",
+			"third": "Siege of Vienna",
+			"fourth": "Thermopiles",
+			"availableTime": 5,
+			"picture": null,
+			"correctAnswer": 1,
+			"createdAt": "2022-07-25T19:07:08.000Z",
+			"updatedAt": "2022-07-25T19:07:08.000Z",
+			"categoryId": "2fa1676a-353a-4c14-853b-97a6a3ae0d0a",
+			"category": {
+				"id": "2fa1676a-353a-4c14-853b-97a6a3ae0d0a",
+				"name": "History",
+				"createdAt": "2022-05-25T15:04:27.000Z",
+				"updatedAt": "2022-05-25T15:04:27.000Z"
+			}
+		},
+		{
+			"id": "603f7dfc-6dd0-46c0-bd8c-3fa4a25781e2",
+			"question": "How many years did world war 1 last?",
+			"first": "2",
+			"second": "3",
+			"third": "4",
+			"fourth": "5",
+			"availableTime": 5,
+			"picture": null,
+			"correctAnswer": 4,
+			"createdAt": "2022-07-25T19:06:20.000Z",
+			"updatedAt": "2022-07-25T19:06:20.000Z",
+			"categoryId": "2fa1676a-353a-4c14-853b-97a6a3ae0d0a",
+			"category": {
+				"id": "2fa1676a-353a-4c14-853b-97a6a3ae0d0a",
+				"name": "History",
+				"createdAt": "2022-05-25T15:04:27.000Z",
+				"updatedAt": "2022-05-25T15:04:27.000Z"
+			}
+		},
+		{
+			"id": "f4bc0812-82d8-4561-ac91-1e45e30810ee",
+			"question": "The Battle of Gettysburg was a battle in which War?",
+			"first": "American independence War",
+			"second": "Second Prusso-Austrian War",
+			"third": "American Civil War",
+			"fourth": "World War One",
+			"availableTime": 5,
+			"picture": null,
+			"correctAnswer": 3,
+			"createdAt": "2022-07-25T19:08:03.000Z",
+			"updatedAt": "2022-07-25T19:08:03.000Z",
+			"categoryId": "2fa1676a-353a-4c14-853b-97a6a3ae0d0a",
+			"category": {
+				"id": "2fa1676a-353a-4c14-853b-97a6a3ae0d0a",
+				"name": "History",
+				"createdAt": "2022-05-25T15:04:27.000Z",
+				"updatedAt": "2022-05-25T15:04:27.000Z"
+			}
+		},
+		{
+			"id": "e66d9d7e-51d0-4383-8456-072d616969dc",
+			"question": "Who was the first King of England?",
+			"first": "William The Conqueror",
+			"second": "Ethelstan",
+			"third": "Ulfred",
+			"fourth": "Aelle",
+			"availableTime": 15,
+			"picture": null,
+			"correctAnswer": 2,
+			"createdAt": "2022-07-25T19:08:44.000Z",
+			"updatedAt": "2022-07-25T19:08:44.000Z",
+			"categoryId": "2fa1676a-353a-4c14-853b-97a6a3ae0d0a",
+			"category": {
+				"id": "2fa1676a-353a-4c14-853b-97a6a3ae0d0a",
+				"name": "History",
+				"createdAt": "2022-05-25T15:04:27.000Z",
+				"updatedAt": "2022-05-25T15:04:27.000Z"
+			}
+		},
+		{
+			"id": "a60e9fb1-35cf-4154-b750-fed69151fe6b",
+			"question": "In which country would you find the city of Dresden?",
+			"first": "Austria",
+			"second": "Germany",
+			"third": "Denmark",
+			"fourth": "Slovenia",
+			"availableTime": 10,
+			"picture": null,
+			"correctAnswer": 2,
+			"createdAt": "2022-07-25T19:11:35.000Z",
+			"updatedAt": "2022-07-25T19:11:35.000Z",
+			"categoryId": "b43447e2-ec61-488c-be0a-e90c4bf4f16b",
+			"category": {
+				"id": "b43447e2-ec61-488c-be0a-e90c4bf4f16b",
+				"name": "Geography",
+				"createdAt": "2022-05-25T12:55:23.000Z",
+				"updatedAt": "2022-05-25T12:55:23.000Z"
+			}
+		},
+		{
+			"id": "a21d9d5b-1311-4373-9e07-3f85e7ad9ca1",
+			"question": "In which year was the battle of Hastings?",
+			"first": "1240",
+			"second": "970",
+			"third": "238",
+			"fourth": "1066",
+			"availableTime": 5,
+			"picture": null,
+			"correctAnswer": 4,
+			"createdAt": "2022-07-25T19:05:27.000Z",
+			"updatedAt": "2022-07-25T19:05:27.000Z",
+			"categoryId": "2fa1676a-353a-4c14-853b-97a6a3ae0d0a",
+			"category": {
+				"id": "2fa1676a-353a-4c14-853b-97a6a3ae0d0a",
+				"name": "History",
+				"createdAt": "2022-05-25T15:04:27.000Z",
+				"updatedAt": "2022-05-25T15:04:27.000Z"
+			}
+		},
+		{
+			"id": "56e132a9-2d1d-4172-a6ab-1e39495e4e9a",
+			"question": "Which continent is in all four hemispheres?",
+			"first": "Africa",
+			"second": "Asia",
+			"third": "Europe",
+			"fourth": "South America",
+			"availableTime": 20,
+			"picture": null,
+			"correctAnswer": 1,
+			"createdAt": "2022-07-25T19:12:02.000Z",
+			"updatedAt": "2022-07-25T19:12:02.000Z",
+			"categoryId": "2fa1676a-353a-4c14-853b-97a6a3ae0d0a",
+			"category": {
+				"id": "2fa1676a-353a-4c14-853b-97a6a3ae0d0a",
+				"name": "History",
+				"createdAt": "2022-05-25T15:04:27.000Z",
+				"updatedAt": "2022-05-25T15:04:27.000Z"
+			}
+		},
+		{
+			"id": "5a178136-7411-4054-b70d-1c1098e7b724",
+			"question": "In which year did Columbus discover America?",
+			"first": "1523",
+			"second": "1428",
+			"third": "1492",
+			"fourth": "1780",
+			"availableTime": 10,
+			"picture": null,
+			"correctAnswer": 3,
+			"createdAt": "2022-07-25T19:09:40.000Z",
+			"updatedAt": "2022-07-25T19:09:40.000Z",
+			"categoryId": "2fa1676a-353a-4c14-853b-97a6a3ae0d0a",
+			"category": {
+				"id": "2fa1676a-353a-4c14-853b-97a6a3ae0d0a",
+				"name": "History",
+				"createdAt": "2022-05-25T15:04:27.000Z",
+				"updatedAt": "2022-05-25T15:04:27.000Z"
+			}
+		}
+	]
+}

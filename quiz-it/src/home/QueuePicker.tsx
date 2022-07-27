@@ -1,4 +1,4 @@
-import { Box, Flex, useColorModeValue, Text, Button } from "@chakra-ui/react";
+import { Flex, Text, useColorModeValue } from "@chakra-ui/react";
 import React from "react";
 import { QIButton } from "../common/QIButton";
 import { QITheme } from "../QITheme";

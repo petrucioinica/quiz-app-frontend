@@ -63,6 +63,7 @@ export const UnrankedQueue: React.FC<QueueProps> = ({ setQueue }) => {
 	useEffect(() => {
 		matchmake();
 		setMatchmakingInterval(1333);
+		//eslint-disable-next-line
 	}, []);
 
 	useInterval(() => {

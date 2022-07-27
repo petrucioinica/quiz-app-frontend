@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { QueuePicker } from "./QueuePicker";
 import { RankedQueue } from "./RankedQueue";

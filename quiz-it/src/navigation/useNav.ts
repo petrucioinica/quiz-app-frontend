@@ -14,7 +14,7 @@ const adminPossibleRoutes: NavRoute[] = [
 	{ value: "/questions", title: "Manage Questions" },
 ];
 
-const playerPossibleRoutes: NavRoute[] = [{ value: "/home", title: "Home" }];
+const playerPossibleRoutes: NavRoute[] = [{ value: "/home", title: "PLAY" }];
 
 export const useNav: UseNav = () => {
 	const { user, didMount } = useContext(AuthContext) as UseAuthReturn;
@@ -37,17 +37,15 @@ export const useNav: UseNav = () => {
 
 	useEffect(() => {
 		if (possibleRoutes.length) {
-			console.log(
-				possibleRoutes.filter((item) => item.value.includes(location?.pathname))
-			);
 			if (
-				possibleRoutes.filter((item) => item.value.includes(location?.pathname))
-					.length == 0 ||
+				possibleRoutes.filter((item) =>
+					item.value.includes(location?.pathname.split("/")[1])
+				).length === 0 ||
 				location?.pathname === "/"
 			) {
 				navigate(possibleRoutes[0]?.value);
 			}
-		}
+		} //eslint-disalbe-next-line
 	}, [location, possibleRoutes]);
 
 	return { possibleRoutes, setPossibleRoutes };

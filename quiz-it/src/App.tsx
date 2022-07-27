@@ -12,6 +12,7 @@ import { ActivateAccount } from "./activateAccount";
 import { Home } from "./home";
 import { Categories } from "./adminDashboard/categories";
 import { Questions } from "./adminDashboard/questions";
+import { MatchComponent } from "./match";
 
 export const App = () => (
 	<ChakraProvider theme={QITheme}>
@@ -27,6 +28,7 @@ export const App = () => (
 						<Route path="/categories" element={<Categories />} />
 						<Route path="/questions" element={<Questions />} />
 						<Route path="*" element={<NotFoundPage />} />
+						<Route path="/home/match/:id" element={<MatchComponent />} />
 					</Routes>
 				</NavigationWrapper>
 			</AuthWrapper>
