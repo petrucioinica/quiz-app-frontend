@@ -49,4 +49,8 @@ export interface UseMatchReturnInterface {
 	matchInfo: MatchInterface | null;
 	points: number;
 	player: MatchPlayerInterface;
+	currentQuestion: number;
+	selectedAnswer: 1 | 2 | 3 | 4 | null;
+	setSelectedAnswer: (value: 1 | 2 | 3 | 4 | null) => void;
+	timer: number;
 }

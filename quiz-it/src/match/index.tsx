@@ -1,11 +1,9 @@
-import { Box, Flex, Spinner, useColorModeValue } from "@chakra-ui/react";
+import { Flex, useColorModeValue } from "@chakra-ui/react";
 import React, { createContext } from "react";
 import { QISpinner } from "../common/QISpinner";
-import { PlayerPanel } from "./PlayerPanel";
 import { QuestionPanel } from "./QuestionPanel";
 import { UseMatchReturnInterface } from "./types";
 import { useMatch } from "./useMatch";
-import { motion } from "framer-motion";
 import { USerPlayerPanel } from "./UserPlayerPanel";
 
 export const MatchContext = createContext<UseMatchReturnInterface>(

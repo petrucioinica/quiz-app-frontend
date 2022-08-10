@@ -18,7 +18,7 @@ export const USerPlayerPanel: React.FC = () => {
 			minW="30%"
 			justifyContent={"space-between"}
 			alignItems="center"
-			h="200px"
+			h="190px"
 			bgColor="primary.900"
 			borderRadius={"24px"}
 			border="2px solid"
