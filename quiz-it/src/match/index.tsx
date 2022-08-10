@@ -6,6 +6,7 @@ import { QuestionPanel } from "./QuestionPanel";
 import { UseMatchReturnInterface } from "./types";
 import { useMatch } from "./useMatch";
 import { motion } from "framer-motion";
+import { USerPlayerPanel } from "./UserPlayerPanel";
 
 export const MatchContext = createContext<UseMatchReturnInterface>(
 	{} as UseMatchReturnInterface
@@ -29,12 +30,12 @@ export const MatchComponent: React.FC = () => {
 						bgColor={bgColor}
 						borderRadius="18px"
 						w="100%"
+						position="relative"
 						boxShadow={"xl"}
 						border="2px solid"
 						borderColor={"white"}>
-						<PlayerPanel playerNumber={1} />
 						<QuestionPanel />
-						<PlayerPanel playerNumber={2} />
+						<USerPlayerPanel />
 					</Flex>
 				)}
 			</Flex>
