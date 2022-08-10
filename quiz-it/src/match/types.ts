@@ -20,3 +20,37 @@ export interface Question {
 	categoryId: string;
 	category: CategoryInterface;
 }
+
+export interface MatchPlayerInterface {
+	id: string;
+	username: string;
+	email: string;
+	elo: number;
+	noOfRankedGames: number;
+	noOfUnrankedGames: number;
+	divisionId: number;
+	roleId: number;
+	role: {
+		id: number;
+		name: string;
+	};
+	timeInQueue: number;
+}
+
+export interface MatchInterface {
+	p1: MatchPlayerInterface;
+	p2: MatchPlayerInterface;
+	matchId: string;
+	questions: Question[];
+}
+
+export interface UseMatchReturnInterface {
+	isLoading: boolean;
+	matchInfo: MatchInterface | null;
+	points: PointsInterface;
+}
+
+export interface PointsInterface {
+	p1: number;
+	p2: number;
+}

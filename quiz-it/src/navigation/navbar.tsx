@@ -71,7 +71,10 @@ export const Navbar: React.FC = () => {
 						fontFamily={"secondary"}
 						mx={8}
 						color={
-							route.value.includes(location.pathname)
+							(location.pathname.includes(route.value) &&
+								location.pathname !== "/") ||
+							(location.pathname === "/" &&
+								route.title.toLowerCase() === "play")
 								? "secondary.500"
 								: "primary.500"
 						}
