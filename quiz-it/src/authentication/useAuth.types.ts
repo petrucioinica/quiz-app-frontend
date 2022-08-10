@@ -7,6 +7,7 @@ export interface QIUser {
 	email: string;
 	elo: number;
 	roleId: number;
+	id: string;
 }
 
 export interface ErrorInterface {

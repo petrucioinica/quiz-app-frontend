@@ -53,6 +53,7 @@ export const PlayerPanel: React.FC<PlayerPanelProps> = ({ playerNumber }) => {
 			</Flex>
 
 			<Flex
+				animation="ease-in"
 				justifyContent={"space-between"}
 				fontFamily="secondary"
 				fontWeight={"bold"}
@@ -60,7 +61,7 @@ export const PlayerPanel: React.FC<PlayerPanelProps> = ({ playerNumber }) => {
 				w="100%">
 				<Text>Points:</Text>
 
-				<Text>{playerNumber === 1 ? match.points.p1 : match.points.p2}</Text>
+				<Text>{match.points}</Text>
 			</Flex>
 		</Flex>
 	);

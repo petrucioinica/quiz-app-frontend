@@ -1,10 +1,11 @@
 import { useToast } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { AuthContext } from "../authentication";
 import matchData from "./matchData.json";
 import {
 	MatchInterface,
-	PointsInterface,
+	MatchPlayerInterface,
 	UseMatchReturnInterface,
 } from "./types";
 
@@ -12,16 +13,21 @@ export const useMatch = (): UseMatchReturnInterface => {
 	const params = useParams();
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const [matchInfo, setMatchInfo] = useState<MatchInterface | null>(null);
-	const [points, setPoints] = useState<PointsInterface>({
-		p1: 0,
-		p2: 0,
-	});
+	const [player, setPlayer] = useState<MatchPlayerInterface>(
+		{} as MatchPlayerInterface
+	);
+	const [points, setPoints] = useState<number>(0);
 	const toast = useToast();
+	const { user } = useContext(AuthContext);
 
 	const getMatchInfo = async () => {
 		try {
 			const res = matchData;
-			setTimeout(() => setMatchInfo(res), 1000);
+			const userPlayer = res.p1.id === user?.id ? res.p1 : res.p2;
+			setTimeout(() => {
+				setMatchInfo(res);
+				setPlayer(userPlayer);
+			}, 1000);
 		} catch (err) {
 			toast({
 				//@ts-ignore
@@ -42,5 +48,6 @@ export const useMatch = (): UseMatchReturnInterface => {
 		isLoading,
 		matchInfo,
 		points,
+		player,
 	};
 };

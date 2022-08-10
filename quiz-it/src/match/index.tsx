@@ -5,6 +5,7 @@ import { PlayerPanel } from "./PlayerPanel";
 import { QuestionPanel } from "./QuestionPanel";
 import { UseMatchReturnInterface } from "./types";
 import { useMatch } from "./useMatch";
+import { motion } from "framer-motion";
 
 export const MatchContext = createContext<UseMatchReturnInterface>(
 	{} as UseMatchReturnInterface
