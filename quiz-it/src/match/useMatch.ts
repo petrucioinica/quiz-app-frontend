@@ -2,6 +2,7 @@ import { useInterval, useTimeout, useToast } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { AuthContext } from "../authentication";
+import { apiClientFactory } from "../utils/apiClient";
 import { calculatePoints } from "../utils/mathUtils";
 import matchData from "./matchData.json";
 import {
@@ -24,20 +25,27 @@ export const useMatch = (): UseMatchReturnInterface => {
 	const [points, setPoints] = useState<number>(0);
 	const [timer, setTimer] = useState<number>(-1);
 	const [timerInterval, setTimerInterval] = useState<number | null>(null);
+	const [finishMatchInterval, setFinishMatchInterval] = useState<number | null>(
+		null
+	);
 	const toast = useToast();
 	const { user } = useContext(AuthContext);
 
 	const getMatchInfo = async () => {
 		try {
-			const res = matchData;
-			const userPlayer = res.p1.id === user?.id ? res.p1 : res.p2;
-			const q1Time = res.questions[0].availableTime;
-			setTimeout(() => {
-				setMatchInfo(res);
-				setPlayer(userPlayer);
-				setTimer(q1Time);
-				setTimerInterval(1000);
-			}, 1000);
+			const apiClient = await apiClientFactory();
+			const res = await apiClient.get(
+				`/api/matchmaking/get-match-info/${params.matchId}`
+			);
+			const userPlayer =
+				res.data.p1.id === user?.id ? res.data.p1 : res.data.p2;
+			const q1Time = res.data.questions[0].availableTime;
+
+			setMatchInfo(res.data);
+			setPlayer(userPlayer);
+			setTimer(q1Time);
+			setTimerInterval(1000);
+			setIsLoading(false);
 		} catch (err) {
 			toast({
 				//@ts-ignore
@@ -47,7 +55,6 @@ export const useMatch = (): UseMatchReturnInterface => {
 				isClosable: true,
 			});
 		}
-		setTimeout(() => setIsLoading(false), 1000);
 	};
 
 	const answerQuestion = () => {
@@ -97,8 +104,50 @@ export const useMatch = (): UseMatchReturnInterface => {
 		}
 	}, [timer]);
 
-	const finishMatch = async () => {
-		console.log("finishing match");
+	const finishMatchOnBe = async () => {
+		const apiClient = await apiClientFactory();
+		setIsLoading(true);
+		await apiClient
+			.post("/api/matchmaking/finish-match", {
+				points,
+				matchId: params.matchId,
+			})
+			.then((res) => {
+				if (res.data.winnerId) {
+					if (res.data.winnerId === user?.id) {
+						toast({
+							title: "Winner",
+							status: "success",
+						});
+					} else {
+						toast({
+							title: "Loser",
+							status: "info",
+						});
+					}
+
+					setFinishMatchInterval(null);
+					setTimerInterval(null);
+				}
+			})
+			.catch((err) => {
+				toast({
+					//@ts-ignore
+					title: err.response.data.error, //@ts-ignore
+					description: err.response.data.message,
+					status: "error",
+					isClosable: true,
+				});
+			})
+			.finally(() => {
+				setIsLoading(false);
+			});
+	};
+
+	useInterval(finishMatchOnBe, finishMatchInterval);
+
+	const finishMatch = () => {
+		setFinishMatchInterval(1000);
 	};
 
 	useInterval(() => {
