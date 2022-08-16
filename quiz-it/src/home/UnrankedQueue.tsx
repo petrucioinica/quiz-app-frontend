@@ -7,6 +7,7 @@ import {
 	useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import { QIButton } from "../common/QIButton";
 import { QITheme } from "../QITheme";
 import { apiClientFactory } from "../utils/apiClient";
@@ -17,6 +18,7 @@ export const UnrankedQueue: React.FC<QueueProps> = ({ setQueue }) => {
 	const bgColor = useColorModeValue("gray.100", "black");
 	const border = useColorModeValue("", `2px solid ${colors.gray[500]}`);
 	const [timeElapsed, setTimeElapsed] = useState<number>(0);
+	const navigate = useNavigate();
 	const [matchmakingInterval, setMatchmakingInterval] = useState<number | null>(
 		null
 	);
@@ -26,7 +28,7 @@ export const UnrankedQueue: React.FC<QueueProps> = ({ setQueue }) => {
 	}, 1000);
 
 	const formatTimeElasped = () => {
-		let minutes = Math.floor(timeElapsed / 10).toString();
+		let minutes = Math.floor(timeElapsed / 60).toString();
 		if (minutes.length < 2) {
 			minutes = "0" + minutes;
 		}
@@ -44,10 +46,13 @@ export const UnrankedQueue: React.FC<QueueProps> = ({ setQueue }) => {
 
 	const matchmake = async () => {
 		const apiClient = await apiClientFactory();
-
 		await apiClient
-			.get("/api/matchmaking/matchmake")
-			.then((res) => console.log(res.data))
+			.get("/api/matchmaking/matchmake-unranked")
+			.then((res) => {
+				if (res.data.matchId) {
+					navigate(`/home/match/${res.data.matchId}`);
+				}
+			})
 			.catch((err) =>
 				toast({
 					//@ts-ignore

@@ -28,7 +28,7 @@ export const App = () => (
 						<Route path="/categories" element={<Categories />} />
 						<Route path="/questions" element={<Questions />} />
 						<Route path="*" element={<NotFoundPage />} />
-						<Route path="/home/match/:id" element={<MatchComponent />} />
+						<Route path="/home/match/:matchId" element={<MatchComponent />} />
 					</Routes>
 				</NavigationWrapper>
 			</AuthWrapper>

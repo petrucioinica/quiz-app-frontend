@@ -44,6 +44,8 @@ export interface MatchInterface {
 	questions: Question[];
 }
 
+export type ScreenEnum = "game" | "waiting" | "winner" | "loser";
+
 export interface UseMatchReturnInterface {
 	isLoading: boolean;
 	matchInfo: MatchInterface | null;
@@ -53,4 +55,5 @@ export interface UseMatchReturnInterface {
 	selectedAnswer: 1 | 2 | 3 | 4 | null;
 	setSelectedAnswer: (value: 1 | 2 | 3 | 4 | null) => void;
 	timer: number;
+	currentScreen: ScreenEnum;
 }

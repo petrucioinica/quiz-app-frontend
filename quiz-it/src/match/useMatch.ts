@@ -1,13 +1,13 @@
-import { useInterval, useTimeout, useToast } from "@chakra-ui/react";
+import { useInterval, useToast } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { AuthContext } from "../authentication";
 import { apiClientFactory } from "../utils/apiClient";
 import { calculatePoints } from "../utils/mathUtils";
-import matchData from "./matchData.json";
 import {
 	MatchInterface,
 	MatchPlayerInterface,
+	ScreenEnum,
 	UseMatchReturnInterface,
 } from "./types";
 
@@ -28,6 +28,7 @@ export const useMatch = (): UseMatchReturnInterface => {
 	const [finishMatchInterval, setFinishMatchInterval] = useState<number | null>(
 		null
 	);
+	const [currentScreen, setCurrentScreen] = useState<ScreenEnum>("game");
 	const toast = useToast();
 	const { user } = useContext(AuthContext);
 
@@ -106,7 +107,7 @@ export const useMatch = (): UseMatchReturnInterface => {
 
 	const finishMatchOnBe = async () => {
 		const apiClient = await apiClientFactory();
-		setIsLoading(true);
+		setCurrentScreen("waiting");
 		await apiClient
 			.post("/api/matchmaking/finish-match", {
 				points,
@@ -119,11 +120,14 @@ export const useMatch = (): UseMatchReturnInterface => {
 							title: "Winner",
 							status: "success",
 						});
+						setCurrentScreen("winner");
 					} else {
 						toast({
 							title: "Loser",
 							status: "info",
 						});
+
+						setCurrentScreen("loser");
 					}
 
 					setFinishMatchInterval(null);
@@ -169,5 +173,6 @@ export const useMatch = (): UseMatchReturnInterface => {
 		selectedAnswer,
 		setSelectedAnswer,
 		timer,
+		currentScreen,
 	};
 };

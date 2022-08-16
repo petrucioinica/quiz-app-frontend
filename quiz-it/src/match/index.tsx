@@ -1,10 +1,13 @@
 import { Flex, useColorModeValue } from "@chakra-ui/react";
 import React, { createContext } from "react";
 import { QISpinner } from "../common/QISpinner";
+import { Loser } from "./Loser";
 import { QuestionPanel } from "./QuestionPanel";
 import { UseMatchReturnInterface } from "./types";
 import { useMatch } from "./useMatch";
 import { USerPlayerPanel } from "./UserPlayerPanel";
+import { WaitingForPlayer } from "./WaitingForPlayer";
+import { Winner } from "./Winner";
 
 export const MatchContext = createContext<UseMatchReturnInterface>(
 	{} as UseMatchReturnInterface
@@ -24,17 +27,26 @@ export const MatchComponent: React.FC = () => {
 				{match.isLoading ? (
 					<QISpinner />
 				) : (
-					<Flex
-						bgColor={bgColor}
-						borderRadius="18px"
-						w="100%"
-						position="relative"
-						boxShadow={"xl"}
-						border="2px solid"
-						borderColor={"white"}>
-						<QuestionPanel />
-						<USerPlayerPanel />
-					</Flex>
+					<>
+						{match.currentScreen === "game" && (
+							<Flex
+								bgColor={bgColor}
+								borderRadius="18px"
+								w="100%"
+								position="relative"
+								boxShadow={"xl"}
+								border="2px solid"
+								borderColor={"white"}>
+								<QuestionPanel />
+								<USerPlayerPanel />
+							</Flex>
+						)}
+
+						{match.currentScreen === "waiting" && <WaitingForPlayer />}
+
+						{match.currentScreen === "winner" && <Winner />}
+						{match.currentScreen === "loser" && <Loser />}
+					</>
 				)}
 			</Flex>
 		</MatchContext.Provider>
