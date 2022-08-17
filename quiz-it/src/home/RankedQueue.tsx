@@ -4,10 +4,13 @@ import {
 	Text,
 	useColorModeValue,
 	useInterval,
+	useToast,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import { QIButton } from "../common/QIButton";
 import { QITheme } from "../QITheme";
+import { apiClientFactory } from "../utils/apiClient";
 import { QueueType } from "./types";
 
 export interface QueueProps {
@@ -19,12 +22,17 @@ export const RankedQueue: React.FC<QueueProps> = ({ setQueue }) => {
 	const bgColor = useColorModeValue("gray.100", "black");
 	const border = useColorModeValue("", `2px solid ${colors.gray[500]}`);
 	const [timeElapsed, setTimeElapsed] = useState<number>(0);
+	const navigate = useNavigate();
+	const [matchmakingInterval, setMatchmakingInterval] = useState<number | null>(
+		null
+	);
+	const toast = useToast();
 	useInterval(() => {
 		setTimeElapsed(timeElapsed + 1);
 	}, 1000);
 
 	const formatTimeElasped = () => {
-		let minutes = Math.floor(timeElapsed / 10).toString();
+		let minutes = Math.floor(timeElapsed / 60).toString();
 		if (minutes.length < 2) {
 			minutes = "0" + minutes;
 		}
@@ -39,6 +47,37 @@ export const RankedQueue: React.FC<QueueProps> = ({ setQueue }) => {
 	const handleCancelClick = () => {
 		setQueue("none");
 	};
+
+	const matchmake = async () => {
+		const apiClient = await apiClientFactory();
+		await apiClient
+			.get("/api/matchmaking/matchmake-ranked")
+			.then((res) => {
+				if (res.data.matchId) {
+					navigate(`/home/match/${res.data.matchId}`);
+				}
+			})
+			.catch((err) =>
+				toast({
+					//@ts-ignore
+					title: err.response.data.error, //@ts-ignore
+					description: err.response.data.message,
+					status: "error",
+					position: "bottom",
+					isClosable: true,
+				})
+			);
+	};
+
+	useEffect(() => {
+		matchmake();
+		setMatchmakingInterval(1333);
+		//eslint-disable-next-line
+	}, []);
+
+	useInterval(() => {
+		matchmake();
+	}, matchmakingInterval);
 
 	return (
 		<Flex

@@ -107,45 +107,52 @@ export const useMatch = (): UseMatchReturnInterface => {
 
 	const finishMatchOnBe = async () => {
 		const apiClient = await apiClientFactory();
-		setCurrentScreen("waiting");
-		await apiClient
-			.post("/api/matchmaking/finish-match", {
-				points,
-				matchId: params.matchId,
-			})
-			.then((res) => {
-				if (res.data.winnerId) {
-					if (res.data.winnerId === user?.id) {
-						toast({
-							title: "Winner",
-							status: "success",
-						});
-						setCurrentScreen("winner");
+
+		if (currentScreen === "game" || currentScreen === "waiting") {
+			setCurrentScreen("waiting");
+			await apiClient
+				.post("/api/matchmaking/finish-match", {
+					points,
+					matchId: params.matchId,
+				})
+				.then((res) => {
+					if (res.data.winnerId) {
+						if (res.data.winnerId === user?.id) {
+							toast({
+								title: "Winner",
+								status: "success",
+							});
+							setCurrentScreen("winner");
+						} else {
+							toast({
+								title: "Loser",
+								status: "info",
+							});
+
+							setCurrentScreen("loser");
+						}
+
+						setFinishMatchInterval(null);
+						setTimerInterval(null);
 					} else {
-						toast({
-							title: "Loser",
-							status: "info",
-						});
-
-						setCurrentScreen("loser");
+						if (res.data.endedAt) {
+							setCurrentScreen("draw");
+						}
 					}
-
-					setFinishMatchInterval(null);
-					setTimerInterval(null);
-				}
-			})
-			.catch((err) => {
-				toast({
-					//@ts-ignore
-					title: err.response.data.error, //@ts-ignore
-					description: err.response.data.message,
-					status: "error",
-					isClosable: true,
+				})
+				.catch((err) => {
+					toast({
+						//@ts-ignore
+						title: err.response.data.error, //@ts-ignore
+						description: err.response.data.message,
+						status: "error",
+						isClosable: true,
+					});
+				})
+				.finally(() => {
+					setIsLoading(false);
 				});
-			})
-			.finally(() => {
-				setIsLoading(false);
-			});
+		}
 	};
 
 	useInterval(finishMatchOnBe, finishMatchInterval);

@@ -1,6 +1,7 @@
 import { Flex, useColorModeValue } from "@chakra-ui/react";
 import React, { createContext } from "react";
 import { QISpinner } from "../common/QISpinner";
+import { Draw } from "./Draw";
 import { Loser } from "./Loser";
 import { QuestionPanel } from "./QuestionPanel";
 import { UseMatchReturnInterface } from "./types";
@@ -46,6 +47,7 @@ export const MatchComponent: React.FC = () => {
 
 						{match.currentScreen === "winner" && <Winner />}
 						{match.currentScreen === "loser" && <Loser />}
+						{match.currentScreen === "draw" && <Draw />}
 					</>
 				)}
 			</Flex>

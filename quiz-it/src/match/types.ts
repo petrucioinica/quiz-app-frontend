@@ -44,7 +44,7 @@ export interface MatchInterface {
 	questions: Question[];
 }
 
-export type ScreenEnum = "game" | "waiting" | "winner" | "loser";
+export type ScreenEnum = "game" | "waiting" | "winner" | "loser" | "draw";
 
 export interface UseMatchReturnInterface {
 	isLoading: boolean;
