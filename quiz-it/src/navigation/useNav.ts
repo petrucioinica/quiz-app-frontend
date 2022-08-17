@@ -14,7 +14,10 @@ const adminPossibleRoutes: NavRoute[] = [
 	{ value: "/questions", title: "Manage Questions" },
 ];
 
-const playerPossibleRoutes: NavRoute[] = [{ value: "/home", title: "PLAY" }];
+const playerPossibleRoutes: NavRoute[] = [
+	{ value: "/home", title: "PLAY" },
+	{ value: "/my-profile", title: "MY PROFILE" },
+];
 
 export const useNav: UseNav = () => {
 	const { user, didMount } = useContext(AuthContext) as UseAuthReturn;
