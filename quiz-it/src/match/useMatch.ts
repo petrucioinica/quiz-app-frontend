@@ -30,7 +30,7 @@ export const useMatch = (): UseMatchReturnInterface => {
 	);
 	const [currentScreen, setCurrentScreen] = useState<ScreenEnum>("game");
 	const toast = useToast();
-	const { user } = useContext(AuthContext);
+	const { user, getUserDetails } = useContext(AuthContext);
 
 	const getMatchInfo = async () => {
 		try {
@@ -115,7 +115,7 @@ export const useMatch = (): UseMatchReturnInterface => {
 					points,
 					matchId: params.matchId,
 				})
-				.then((res) => {
+				.then(async (res) => {
 					if (res.data.winnerId) {
 						if (res.data.winnerId === user?.id) {
 							toast({
@@ -132,6 +132,9 @@ export const useMatch = (): UseMatchReturnInterface => {
 							setCurrentScreen("loser");
 						}
 
+						if (res.data.isRanked) {
+							await getUserDetails();
+						}
 						setFinishMatchInterval(null);
 						setTimerInterval(null);
 					} else {

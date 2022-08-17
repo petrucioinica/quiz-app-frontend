@@ -3,11 +3,19 @@ import { RegisterFormState } from "../register/types";
 
 export interface QIUser {
 	username: string;
-	role: number;
 	email: string;
 	elo: number;
 	roleId: number;
 	id: string;
+	divisionId: number;
+	role: {
+		id: number;
+		name: string;
+	};
+	division: {
+		id: number;
+		name: string;
+	};
 }
 
 export interface ErrorInterface {
@@ -23,6 +31,7 @@ export interface UseAuthReturn {
 	didMount: boolean;
 	logOut: () => void;
 	logIn: (formState: LogInFormState) => Promise<void | ErrorInterface>;
+	getUserDetails: () => Promise<void>;
 }
 
 export type UseAuth = () => UseAuthReturn;

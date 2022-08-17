@@ -11,12 +11,28 @@ export const useAuth: UseAuth = () => {
 	const [didMount, setDidMount] = useState<boolean>(false);
 	const navigate = useNavigate();
 
+	const getUserDetails = async () => {
+		const apiClient = await apiClientFactory();
+		await apiClient
+			.get("/api/user/get-user-details")
+			.then((res) => {
+				console.log(res.data);
+				setUser(res.data);
+			})
+			.catch((err) => console.error(err))
+			.finally(() => setDidMount(true));
+	};
+
 	useEffect(() => {
-		const token = localStorage.getItem("token") ?? "";
-		if (token) {
-			setUser(jwt_decode(token));
+		if (!didMount) {
+			const token = localStorage.getItem("token") ?? "";
+			if (token) {
+				getUserDetails();
+				setUser(jwt_decode(token));
+			} else {
+				setDidMount(true);
+			}
 		}
-		setDidMount(true);
 	}, [didMount]);
 	//returns null if it worked and the error if it did not
 	const registerUser = async (formData: RegisterFormState) => {
@@ -62,5 +78,6 @@ export const useAuth: UseAuth = () => {
 		didMount,
 		logOut,
 		logIn,
+		getUserDetails,
 	};
 };
